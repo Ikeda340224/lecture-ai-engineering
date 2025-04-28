@@ -14,7 +14,7 @@ import transformers
 
 # --- 設定 ---
 # モデル名を設定
-MODEL_NAME = "Rinna/gemma-2-baku-2b"  # お好みのモデルに変更可能です
+MODEL_NAME = "rinna/gemma-2-baku-2b" # rinna/gemma-2-baku-2bに変更
 print(f"モデル名を設定: {MODEL_NAME}")
 
 # --- モデル設定クラス ---
@@ -72,6 +72,7 @@ def load_model():
            model_kwargs={"torch_dtype": torch.bfloat16, "attn_implementation": "eager"},
            device_map="auto"
         )
+
         print(f"モデル '{config.MODEL_NAME}' の読み込みに成功しました")
         model = pipe  # グローバル変数を更新
         return pipe
