@@ -10,7 +10,7 @@ from typing import Optional, List, Dict, Any
 import uvicorn
 import nest_asyncio
 from pyngrok import ngrok
-
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # --- 設定 ---
 # モデル名を設定

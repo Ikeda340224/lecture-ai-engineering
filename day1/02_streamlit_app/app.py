@@ -10,6 +10,7 @@ from transformers import pipeline
 from config import MODEL_NAME
 from huggingface_hub import HfFolder
 import transformers
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # --- アプリケーション設定 ---
 st.set_page_config(page_title="Gemma Chatbot", layout="wide")
@@ -31,14 +32,15 @@ data.ensure_initial_data()
 def load_model():
     """LLMモデルをロードする"""
     try:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        st.info(f"Using device: {device}") # 使用デバイスを表示
-        pipe = pipeline(
-            "text-generation",
-            model=MODEL_NAME,
-            model_kwargs={"torch_dtype": torch.bfloat16},
-            device=device
+        model_id = "rinna/gemma-2-baku-2b-it"
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        model = AutoModelForCausalLM.from_pretrained(
+          model_id,
+          device_map="cuda",
+          torch_dtype=torch.bfloat16,
+          attn_implementation="eager",
         )
+
         st.success(f"モデル '{MODEL_NAME}' の読み込みに成功しました。")
         return pipe
     except Exception as e:
