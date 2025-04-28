@@ -9,9 +9,10 @@ import torch
 from transformers import pipeline
 from config import MODEL_NAME
 from huggingface_hub import HfFolder
+import transformers
 
 # --- アプリケーション設定 ---
-st.set_page_config(page_title="Gemma Chatbot", layout="wide")
+st.set_page_config(page_title="Rinna Gemma Chatbot", layout="wide")
 
 # --- 初期化処理 ---
 # NLTKデータのダウンロード（初回起動時など）
@@ -28,14 +29,13 @@ data.ensure_initial_data()
 @st.cache_resource
 def load_model():
     """LLMモデルをロードする"""
-    try:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        st.info(f"Using device: {device}") # 使用デバイスを表示
-        pipe = pipeline(
-            "text-generation",
-            model=MODEL_NAME,
-            model_kwargs={"torch_dtype": torch.bfloat16},
-            device=device
+    try:        
+        model_id = "rinna/gemma-2-baku-2b"##モデルの変更 google/gemma-2-2b-jpn-it -> rinna/gemma-2-baku-2b##
+        pipe = transformers.pipeline(
+          "text-generation",
+           model=model_id,
+           model_kwargs={"torch_dtype": torch.bfloat16, "attn_implementation": "eager"},
+           device_map="auto"
         )
         st.success(f"モデル '{MODEL_NAME}' の読み込みに成功しました。")
         return pipe
@@ -46,8 +46,8 @@ def load_model():
 pipe = llm.load_model()
 
 # --- Streamlit アプリケーション ---
-st.title("🤖 Gemma 2 Chatbot with Feedback")
-st.write("Gemmaモデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
+st.title("👧 Rinna/gemma-2-baku-2b with Feedback")
+st.write("Gemma-2-baku-2bモデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
 st.markdown("---")
 
 # --- サイドバー ---
@@ -78,4 +78,4 @@ elif st.session_state.page == "サンプルデータ管理":
 
 # --- フッターなど（任意） ---
 st.sidebar.markdown("---")
-st.sidebar.info("開発者: [Your Name]")
+st.sidebar.info("開発者: [Ikeda Jun]")
