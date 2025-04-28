@@ -5,7 +5,6 @@ import time
 
 st.title("BMI計算機")
 
-
 st.sidebar.header("BMIと適正体重")
 st.sidebar.info("身長と体重を入力してください。")
 
