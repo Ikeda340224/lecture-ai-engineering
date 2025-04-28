@@ -10,10 +10,11 @@ from typing import Optional, List, Dict, Any
 import uvicorn
 import nest_asyncio
 from pyngrok import ngrok
+import transformers
 
 # --- 設定 ---
 # モデル名を設定
-MODEL_NAME = "google/gemma-2-2b-jpn-it"  # お好みのモデルに変更可能です
+MODEL_NAME = "Rinna/gemma-2-baku-2b"  # お好みのモデルに変更可能です
 print(f"モデル名を設定: {MODEL_NAME}")
 
 # --- モデル設定クラス ---
@@ -64,13 +65,12 @@ def load_model():
     """推論用のLLMモデルを読み込む"""
     global model  # グローバル変数を更新するために必要
     try:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"使用デバイス: {device}")
-        pipe = pipeline(
-            "text-generation",
-            model=config.MODEL_NAME,
-            model_kwargs={"torch_dtype": torch.bfloat16},
-            device=device
+        model_id = "rinna/gemma-2-baku-2b"##モデルの変更 google/gemma-2-2b-jpn-it -> rinna/gemma-2-baku-2b##
+        pipe = transformers.pipeline(
+          "text-generation",
+           model=model_id,
+           model_kwargs={"torch_dtype": torch.bfloat16, "attn_implementation": "eager"},
+           device_map="auto"
         )
         print(f"モデル '{config.MODEL_NAME}' の読み込みに成功しました")
         model = pipe  # グローバル変数を更新
