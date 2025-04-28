@@ -13,7 +13,7 @@ import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # --- アプリケーション設定 ---
-st.set_page_config(page_title="Gemma Chatbot", layout="wide")
+st.set_page_config(page_title="Gemma-2-Baku-2b-It Chatbot", layout="wide")
 
 # --- 初期化処理 ---
 # NLTKデータのダウンロード（初回起動時など）
@@ -50,8 +50,8 @@ def load_model():
 pipe = llm.load_model()
 
 # --- Streamlit アプリケーション ---
-st.title("Gemma-2 with Feedback")
-st.write("Gemma-2モデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
+st.title("Gemma-2-Baku-2b-It with Feedback")
+st.write("Gemma-2-Baku-2b-Itモデルを使用したチャットボットです。回答に対してフィードバックを行えます。")
 st.markdown("---")
 
 # --- サイドバー ---
