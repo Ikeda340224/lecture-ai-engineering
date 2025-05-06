@@ -32,7 +32,7 @@ data.ensure_initial_data()
 def load_model():
     """LLMモデルをロードする"""
     try:
-        model_id = "rinna/gemma-2-baku-2b-it"
+        model_id = "rinna/gemma-2-baku-2b-it"#モデル変更
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         model = AutoModelForCausalLM.from_pretrained(
           model_id,
@@ -67,7 +67,6 @@ page = st.sidebar.radio(
     index=["チャット", "履歴閲覧", "サンプルデータ管理"].index(st.session_state.page), # 現在のページを選択状態にする
     on_change=lambda: setattr(st.session_state, 'page', st.session_state.page_selector) # 選択変更時に状態を更新
 )
-
 
 # --- メインコンテンツ ---
 if st.session_state.page == "チャット":
