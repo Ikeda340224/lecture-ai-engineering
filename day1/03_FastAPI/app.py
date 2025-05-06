@@ -12,7 +12,6 @@ import nest_asyncio
 from pyngrok import ngrok
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# --- 設定 ---
 # モデル名を設定
 MODEL_NAME = "google/gemma-2-2b-jpn-it"  
 print(f"モデル名を設定: {MODEL_NAME}")
