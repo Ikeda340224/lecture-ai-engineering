@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-
 st.title("BMI計算機")
 
 st.sidebar.header("BMIと適正体重")
